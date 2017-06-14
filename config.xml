@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="parikshit.pandya.app.redditviewer" version="4.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="parikshit.pandya.app.redditviewer" version="4.3.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Viewer for Reddit</name>
     <description>App for viewing subreddits at one place quickly and swiftly with better UI.
         Check all reddits here, filter them check out source.</description>

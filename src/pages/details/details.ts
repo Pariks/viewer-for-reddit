@@ -29,7 +29,7 @@ export class DetailsPage {
   b: any;
 
   c: any;
-
+  shareVid: any;
   concate: any;
   display: any;
 
@@ -44,14 +44,16 @@ export class DetailsPage {
     this.b = "be";
     this.c = ".com";
     this.concate = this.y + this.t;
-    console.log(this.item );
+
     if(this.item.url.includes(this.concate)){
       this.concate = "https://www." + this.y + this.t + this.b + this.c + "/embed/";
+
       if(this.item.url.includes(this.c)) {
         this.concate +=  this.item.url.split("=").pop();
       }else if(this.item.url.includes("."+this.b)) {
         this.concate +=  this.item.url.split("/").pop();
       }
+      this.shareVid = this.item.url;
       this.display = true;
     }
 
@@ -109,7 +111,7 @@ export class DetailsPage {
     }
 
     if(this.display){
-      url = this.concate.replace("embed/", "");
+      url = this.shareVid;
     }
 
     if(url === null){
