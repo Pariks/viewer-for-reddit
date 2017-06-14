@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>
+      {{item.title}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-card >
+    <ion-fab  right padding-right>
+      <button ion-fab mini clear item-only  color="danger"><ion-icon name="share"></ion-icon></button>
+      <ion-fab-list side="left">
+        <button ion-fab (click)="share('facebook')" ><ion-icon name="logo-facebook"></ion-icon></button>
+        <button ion-fab (click)="share('twitter')" ><ion-icon name="logo-twitter"></ion-icon></button>
+        <button ion-fab (click)="share('whatsapp')" ><ion-icon name="logo-whatsapp"></ion-icon></button>
+        <button ion-fab (click)="share('instagram')" ><ion-icon name="logo-instagram"></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
+	 <ion-item>
+    	<ion-avatar item-left>
+     		 <img src="icons/avatar/avatar.ico">
+    	</ion-avatar>
+    	<h2 style="font-weight: bold;">{{item.author}}</h2>
+  	</ion-item>
+
+  		<span *ngIf="item.hasOwnProperty('preview')">
+	  		 <img src="{{item.preview.images[0].source.url}}"/>
+	   </span>
+	  <ion-card-content>
+	    <ion-card-title>
+	      {{item.title}}
+	    </ion-card-title>
+	    <ion-list>
+
+	    	<ion-item>
+	    		<ion-icon  color="{{scoreColor}}" (click)="setScoreColor()" name="thumbs-up" item-left></ion-icon>
+          <button ion-button color="{{scoreColor}}" (click)="setScoreColor()"  clear>Score</button>
+	    		<ion-badge item-right>{{item.score}}</ion-badge>
+	    	</ion-item>
+
+	    	<ion-item (click)="getComments()">
+	    		<ion-icon color="dark" name="chatboxes" item-left></ion-icon>
+          <button ion-button color="dark" clear>Comments</button>
+	    		<ion-badge item-right>{{item.num_comments}}</ion-badge>
+	    	</ion-item>
+	    </ion-list>
+
+
+	  <ion-card-content *ngIf="item.subreddit == 'Music'">
+      <p [innerHtml]='item.selftext'></p>
+    </ion-card-content>
+
+ 		<div *ngIf=" item.url.includes('imgur') && item.url.indexOf('gifv') > -1" class="video-container">
+            <img width="100%" height="70%" [src]='sanitizeUrl("https://i.imgur.com/"+item.url.split("/").pop().replace("gifv", "gif").replace("mp4", "gif"))'>
+        </div>
+
+      <div *ngIf="!!display" class="video-container">
+        <iframe width="100%" height="80%" [src]='sanitizeUrl(concate)' frameborder="0" allowfullscreen></iframe>
+      </div>
+
+
+      <div *ngIf="!!showComments">
+        <div >
+          <div *ngFor="let item of createRange(this.totalMainComments); let i=index">
+              <div>
+                <img src="icons/avatar/reply.png" style="float: left; width: 17px; height: 17px;">
+                <span style="font-weight: bold; font-size: 12px; text-align: center; float: left; padding-left: 5px;">{{comments[i].author}}</span>
+              </div>
+              <p style="clear: both; display: flex; text-align: justify; padding-left: 25px;">{{comments[i].body}}</p>
+              <ion-item *ngIf="!!comments[i].replies" >
+                <ion-icon style="padding-left: 10px;" small name="thumbs-up"></ion-icon>
+                <span  style="font-size: small;" clear>{{comments[i].score}}</span>
+                <ion-icon small color="dark" name="chatboxes" (click)="loadReplies()"></ion-icon>
+                <span style="font-size: small;" >{{comments[i].replies.data.children.length}}</span>
+              </ion-item>
+
+
+            <div *ngIf="!!replies" style="padding-left: 20px;">
+              <div *ngIf="comments[i].hasOwnProperty('replies') && comments[i].replies !== '' ">
+                <div *ngFor="let item of createRange(comments[i].replies.data.children.length); let y=index">
+                  <div *ngIf="comments[i].replies.data.children[y].hasOwnProperty('data') && comments[i].replies.data.children[y].kind ==='t1' ">
+
+                    <div>
+                      <img src="icons/avatar/mainComment.png" style="float: left; width: 17px; height: 17px;">
+                      <span style="font-weight: bold; font-size: 12px; text-align: center; float: left; padding-left: 5px;">{{comments[i].replies.data.children[y].data.author}}</span>
+                    </div>
+                    <p style="clear: both; display: flex; text-align: justify; padding-left: 25px;">{{comments[i].replies.data.children[y].data.body}}</p>
+                    <ion-item *ngIf="!!comments[i].replies.data.children[y].data.replies" >
+                      <ion-icon style="padding-left: 10px;" small name="thumbs-up"></ion-icon>
+                      <span  style="font-size: small;" clear>{{comments[i].replies.data.children[y].data.score}}</span>
+                      <ion-icon small color="dark" name="chatboxes"> </ion-icon>
+                      <span style="font-size: small;" >{{comments[i].replies.data.children[y].data.replies.data.children.length}}</span>
+                    </ion-item>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+	    <a  ion-button block target="_blank" href="{{item.url}}">View at Source</a>
+	    <a ion-button block target="_blank" href="http://reddit.com/{{item.permalink}}">View On Reddit</a>
+
+    </ion-card-content>
+
+
+
+	</ion-card>
+</ion-content>
+

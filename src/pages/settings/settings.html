@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>
+       Settings
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+ <form (submit)="setDefaults()">
+ 	<ion-list>
+	  	<ion-item>
+	  		<ion-label fixed>Category</ion-label>
+	  		<ion-select  [(ngModel)]="category" name="category">
+		 		<ion-option value="sports">Sports</ion-option>
+	  			<ion-option value="food">Food</ion-option>  			
+	  			<ion-option value="music">Music</ion-option>
+	  			<ion-option value="funny">Funny</ion-option>
+	  			<ion-option value="cryptocurrency">CryptoCurrency</ion-option>
+	  			<ion-option value="bitcoin">Bitcoin</ion-option>
+	  			<ion-option value="art">Art</ion-option>
+	  			<ion-option value="news">News</ion-option>
+	  			<ion-option value="gaming">Gaming</ion-option>  				
+	  			<ion-option value="android">Android News</ion-option>
+	  			<ion-option value="ios">IOS News</ion-option>
+	  			<ion-option value="technology">Technology</ion-option>
+	  			<ion-option value="business">Business</ion-option>
+	  		</ion-select>
+	  	</ion-item>
+	  	<ion-item>
+	  		<ion-label fixed>Limit</ion-label>
+	  		<ion-select  [(ngModel)]="limit" name="limit">
+	  			 
+	  			<ion-option value="10">10</ion-option>
+	  			<ion-option value="15">15</ion-option>
+	  			<ion-option value="20">20</ion-option>
+	  			<ion-option value="25">25</ion-option>
+	  			<ion-option value="30">30</ion-option>
+	  			<ion-option value="50">50</ion-option>
+	  			<ion-option value="60">60</ion-option>
+	  			<ion-option value="80">80</ion-option>
+	  			<ion-option value="100">100</ion-option>
+	  		</ion-select>
+	  	</ion-item>
+	  	<button ion-button type="submit" block>Save Changes</button>
+    </ion-list>
+ </form>
+</ion-content>

@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>
+
+       	<img src="icons/redditViewer/rv-mdpi.png" alt="" align="middle">
+       	<span>Reddit Viewer</span>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-list>
+  	<ion-item>
+
+  		<ion-label fixed>Category</ion-label>
+  		<ion-select (ionChange)="changeCategory()" [(ngModel)]="category" name="category">
+        <ion-option value="funny">Funny</ion-option>
+        <ion-option value="pics">Pics</ion-option>
+        <ion-option value="gifs">GIFs</ion-option>
+        <ion-option value="videos">Videos</ion-option>
+        <ion-option value="ProgrammerHumor">Programmer Humor</ion-option>
+        <ion-option value="Tinder">Tinder</ion-option>
+        <ion-option value="aww">Aww</ion-option>
+        <ion-option value="todayilearned">(TIL)Today I Learned</ion-option>
+        <ion-option value="OldSchoolCool">Old School Cool</ion-option>
+        <ion-option value="interestingasfuck">Interesting Fucks</ion-option>
+        <ion-option value="photoshopbattles">Photoshop Battles</ion-option>
+        <ion-option value="HighQualityGifs">High Quality Gifs</ion-option>
+        <ion-option value="sports">Sports</ion-option>
+        <ion-option value="television">Television</ion-option>
+        <ion-option value="instant_regret">Instant Regret</ion-option>
+        <ion-option value="history">History</ion-option>
+        <ion-option value="gaming">Gaming</ion-option>
+        <ion-option value="food">Food</ion-option>
+        <ion-option value="music">Music</ion-option>
+  			<ion-option value="cryptocurrency">CryptoCurrency</ion-option>
+  			<ion-option value="bitcoin">Bitcoin</ion-option>
+  			<ion-option value="art">Art</ion-option>
+        <ion-option value="news">News</ion-option>
+        <ion-option value="android">Android News</ion-option>
+  			<ion-option value="ios">IOS News</ion-option>
+  			<ion-option value="technology">Technology</ion-option>
+  			<ion-option value="business">Business</ion-option>
+  		</ion-select>
+  		<ion-select  (ionChange)="changeCategory()" [(ngModel)]="limit" name="limit">
+	  			<ion-option value="10">10</ion-option>
+	  			<ion-option value="15">15</ion-option>
+	  			<ion-option value="20">20</ion-option>
+	  			<ion-option value="25">25</ion-option>
+	  			<ion-option value="30">30</ion-option>
+	  			<ion-option value="50">50</ion-option>
+	  			<ion-option value="60">60</ion-option>
+	  			<ion-option value="80">80</ion-option>
+	  			<ion-option value="100">100</ion-option>
+	  		</ion-select>
+
+  	</ion-item>
+
+  </ion-list>
+   <ion-list>
+
+	  	<ion-item *ngFor=" let item of items">
+        <ion-thumbnail *ngIf=" item.data.thumbnail && item.data.thumbnail.indexOf('self') == -1  && item.data.thumbnail.indexOf('default') == -1" item-left>
+		  	<img src="{{item.data.thumbnail}}" >
+		 </ion-thumbnail>
+
+		<ion-thumbnail *ngIf="  category == 'sports' && item.data.thumbnail && item.data.thumbnail.indexOf('self') > -1" item-left>
+		  	<img src="icons/redditViewer/rv-xhdpi.png">
+		</ion-thumbnail>
+	 	<ion-thumbnail *ngIf="  category == 'sports' && item.data.thumbnail && item.data.thumbnail.indexOf('default') > -1" item-left>
+		  	<img src="icons/redditViewer/rv-xhdpi.png">
+		</ion-thumbnail>
+ 		<ion-thumbnail *ngIf=" category == 'news' " item-left>
+		  	<img src="icons/news/ns-xhdpi.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'music' " item-left>
+		  	<img src="icons/music/drawable-xhdpi.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'business' " item-left>
+		  	<img src="icons/business/drawable-xhdpi.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'technology' " item-left>
+		  	<img src="icons/technology/drawable-xhdpi.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'android' && item.data.thumbnail && item.data.thumbnail.indexOf('self') > -1" item-left>
+		  	<img src="icons/android/android.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'android' && item.data.thumbnail && item.data.thumbnail.indexOf('default') > -1" item-left>
+		  	<img src="icons/android/android.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'ios' && item.data.thumbnail && item.data.thumbnail.indexOf('self') > -1" item-left>
+		  	<img src="icons/ios/ios.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'ios' && item.data.thumbnail && item.data.thumbnail.indexOf('default') > -1" item-left>
+		  	<img src="icons/ios/ios.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'bitcoin' && item.data.thumbnail && item.data.thumbnail.indexOf('self') > -1" item-left>
+		  	<img src="icons/bitcoin/bitcoin.png" >
+		</ion-thumbnail>
+
+		<ion-thumbnail *ngIf=" category == 'bitcoin' && item.data.thumbnail && item.data.thumbnail.indexOf('default') > -1" item-left>
+		  	<img src="icons/bitcoin/bitcoin.png" >
+		</ion-thumbnail>
+
+
+     <h2 (click)="loadAd()"> {{item.data.title}}</h2>
+
+
+	  	  <p>
+	  	  	<ion-icon name="thumbs-up"> {{item.data.score}}</ion-icon>
+	  	  	<ion-icon name="chatboxes"> {{item.data.num_comments}}</ion-icon>
+	  	  </p>
+	  	  <button ion-button clear item-right (click)="viewItem(item.data)">View</button>
+
+	 	 </ion-item>
+
+  </ion-list>
+</ion-content>
